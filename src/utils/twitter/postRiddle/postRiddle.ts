@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Scraper } from "agent-twitter-client";
 import { getUnsolvedRiddle } from "../../getNewRiddle";
+import { getRiddleId } from "../getRiddleId";
 
 export const postRiddle = async (
   twitterClient: Scraper,
@@ -28,10 +29,19 @@ export const postRiddle = async (
       },
     });
     console.log(
-      `Riddle ${unsolvedRiddle.id} marked as posted in the database.`
+      `Riddle with id: ${unsolvedRiddle.id} marked as posted in the database.`
     );
   } catch (error) {
     console.error("Error updating riddle status:", error);
+    throw error;
+  }
+
+  try {
+    const tweetId = await getRiddleId(twitterClient, unsolvedRiddle.riddle);
+    console.log(`Tweet ID successfully retrieved: ${tweetId}`);
+    return tweetId;
+  } catch (error) {
+    console.error("Error getting riddle ID:", error);
     throw error;
   }
 };

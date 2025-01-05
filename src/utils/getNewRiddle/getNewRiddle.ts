@@ -4,7 +4,7 @@ export const getNewRiddle = async (prismaClient: PrismaClient) => {
   try {
     const riddle = await prismaClient.riddle.findFirst({
       where: {
-        isSolved: false,
+        isPosted: false,
       },
       orderBy: {
         createdAt: "asc",

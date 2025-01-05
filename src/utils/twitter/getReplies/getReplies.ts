@@ -1,18 +1,20 @@
-import { Scraper, SearchMode } from "agent-twitter-client";
+import { Scraper } from "agent-twitter-client";
 
 export const getReplies = async (
   twitterClient: Scraper,
   tweetId: string,
   searchLimit: number = 10
 ) => {
-  const searchQuery = `conversation_id:${tweetId} is:reply`;
+  const searchQuery = `to:${process.env.TWITTER_USERNAME}`;
   const replies = [];
 
   for await (const tweet of twitterClient.searchTweets(
     searchQuery,
     searchLimit
   )) {
-    replies.push(tweet);
+    if (tweet.inReplyToStatusId === tweetId) {
+      replies.push(tweet);
+    }
   }
 
   return replies;
