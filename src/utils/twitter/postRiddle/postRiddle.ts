@@ -39,7 +39,7 @@ export const postRiddle = async (
   try {
     const tweetId = await getRiddleId(twitterClient, unsolvedRiddle.riddle);
     console.log(`Tweet ID successfully retrieved: ${tweetId}`);
-    return tweetId;
+    return { riddle: unsolvedRiddle, tweetId };
   } catch (error) {
     console.error("Error getting riddle ID:", error);
     throw error;

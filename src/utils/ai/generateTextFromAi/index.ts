@@ -1,0 +1,1 @@
+export { generateTextFromAi } from "./generateTextFromAi";
