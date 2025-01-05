@@ -2,6 +2,7 @@ import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { INCORRECT_REPLY, CORRECT_REPLY } from "./constants";
 
+//TODO Currently not used, but could be used in the future
 export const checkRiddleReplay = async (
   riddle: string,
   correctAnswer: string,

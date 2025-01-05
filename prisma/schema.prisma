@@ -17,6 +17,7 @@ model Riddle {
   id        String @id @default(cuid())
   riddle    String
   answer    String
+  isPosted  Boolean @default(false)
   isSolved  Boolean @default(false)
   createdAt DateTime @default(now())
 }
