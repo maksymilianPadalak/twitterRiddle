@@ -8,7 +8,7 @@ export const checkRiddleReplay = async (
   userAnswer: string
 ) => {
   const { text } = await generateText({
-    model: openai("gpt-4o-m"),
+    model: openai("gpt-4o-mini"),
     system: "You are a judge that judges if an answer is correct or not",
     prompt: `This is the riddle: ${riddle} and this is the correct answer: ${correctAnswer}.
     Based on the answer, you should judge if the answer is correct or not.

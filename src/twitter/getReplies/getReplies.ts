@@ -3,20 +3,19 @@ import { Scraper } from "agent-twitter-client";
 export const getReplies = async (
   twitterClient: Scraper,
   tweetId: string,
-  timelineLimit: number = 10
+  searchLimit: number = 10
 ) => {
-  const timelineTweets = [];
+  const searchQuery = `to:${process.env.TWITTER_USERNAME}`;
+  const replies = [];
 
-  for await (const tweet of twitterClient.getTweets(
-    process.env.TWITTER_USERNAME || "",
-    timelineLimit
+  for await (const tweet of twitterClient.searchTweets(
+    searchQuery,
+    searchLimit
   )) {
-    timelineTweets.push(tweet);
+    if (tweet.inReplyToStatusId === tweetId) {
+      replies.push(tweet);
+    }
   }
-
-  const replies = timelineTweets.filter(
-    (tweet) => tweet.inReplyToStatusId === tweetId
-  );
 
   return replies;
 };

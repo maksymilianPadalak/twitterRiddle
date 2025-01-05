@@ -4,12 +4,12 @@ import { postTweet } from "./twitter/postTweet";
 import { loginToTwitter } from "./twitter/loginToTwitter";
 import { generateTweet } from "./ai/generateTweet";
 import { getReplies } from "./twitter/getReplies";
-import { getRiddleReplay } from "./ai/checkRiddleReplay";
+import { checkRiddleReplay } from "./ai/checkRiddleReplay/checkRiddleReplay";
 
 dotenv.config();
 
-const riddle = "What is the capital of France?";
-const answer = "Paris";
+const riddle = "What is the capital of Estonia?";
+const answer = "Tallinn";
 
 async function main() {
   const newTweet = await generateTweet("Generate an unique riddle");
@@ -19,7 +19,7 @@ async function main() {
 
   await loginToTwitter(twitterClient);
 
-  const ORIGINAL_RIDDLE_TWEET_ID = "1875557698546311386";
+  const ORIGINAL_RIDDLE_TWEET_ID = "1875897383651074229";
   const replies = await getReplies(twitterClient, ORIGINAL_RIDDLE_TWEET_ID);
 
   for await (const reply of replies) {
@@ -27,7 +27,7 @@ async function main() {
       continue;
     }
 
-    const isCorrect = await getRiddleReplay(riddle, answer, reply.text);
+    const isCorrect = await checkRiddleReplay(riddle, answer, reply.text);
 
     const CORRECT_REPLY = "Correct! You are a genius!";
     const INCORRECT_REPLY = "Incorrect! Do you want a hint?";
