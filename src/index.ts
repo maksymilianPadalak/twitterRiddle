@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import { Scraper } from "agent-twitter-client";
-import { postTweet } from "./twitter/postTweet";
-import { loginToTwitter } from "./twitter/loginToTwitter";
-import { generateTweet } from "./ai/generateTweet";
-import { getReplies } from "./twitter/getReplies";
-import { checkRiddleReplay } from "./ai/checkRiddleReplay/checkRiddleReplay";
+import { postTweet } from "./utils/twitter/postTweet";
+import { loginToTwitter } from "./utils/twitter/loginToTwitter";
+import { generateTweet } from "./utils/ai/generateTweet";
+import { getReplies } from "./utils/twitter/getReplies";
+import { checkRiddleReplay } from "./utils/ai/checkRiddleReplay/checkRiddleReplay";
 
 dotenv.config();
 
