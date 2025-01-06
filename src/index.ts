@@ -5,9 +5,8 @@ import { getReplies } from "./utils/twitter/getReplies";
 import { PrismaClient } from "@prisma/client";
 import { postRiddle } from "./utils/twitter/postRiddle";
 import { validateAnswer } from "./utils/validateAnswer";
-import { postTweet } from "./utils/twitter/postTweet";
-import { generateTextFromAi } from "./utils/ai/generateTextFromAi";
 import { replyToWinningAnswer } from "./utils/twitter/replyToWinningAnswer";
+import { saveWinner } from "./utils/saveWinner";
 
 dotenv.config();
 
@@ -26,7 +25,7 @@ async function main() {
     return;
   }
 
-  const scaningForAnswerInterval = 30000;
+  const scaningForAnswerInterval = 10000;
 
   const intervalId = setInterval(async () => {
     console.log(
@@ -43,6 +42,7 @@ async function main() {
 
     for (const reply of sortedReplies) {
       if (!reply.text || !reply.id) {
+        console.error("Reply text or ID not found");
         continue;
       }
 
@@ -52,8 +52,19 @@ async function main() {
       );
 
       if (isAnswerCorrect) {
-        replyToWinningAnswer(twitterClient, reply.id, intervalId);
-        break;
+        await replyToWinningAnswer(twitterClient, reply.id, intervalId);
+
+        if (reply.userId && reply.username) {
+          await saveWinner(
+            prismaClient,
+            reply.id,
+            reply.userId,
+            reply.username
+          );
+          break;
+        } else {
+          console.error("User ID or username not found in reply");
+        }
       }
     }
   }, scaningForAnswerInterval);

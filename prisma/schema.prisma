@@ -21,3 +21,11 @@ model Riddle {
   isSolved  Boolean @default(false)
   createdAt DateTime @default(now())
 }
+
+model Winner {
+  id        String @id @default(cuid())
+  riddleId  String
+  userId    String
+  username  String
+  createdAt DateTime @default(now())
+}

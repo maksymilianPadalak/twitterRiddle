@@ -1,6 +1,7 @@
 import { Scraper, Tweet } from "agent-twitter-client";
 import { postTweet } from "../postTweet";
 import { generateTextFromAi } from "../../ai/generateTextFromAi";
+import { saveWinner } from "../../saveWinner";
 
 export const replyToWinningAnswer = async (
   twitterClient: Scraper,

@@ -42,7 +42,6 @@ export const postRiddle = async (
       return { riddle: postedRiddle, tweetId };
     } catch (error) {
       console.error("Error getting riddle ID:", error);
-      throw error;
     }
   }
 };
