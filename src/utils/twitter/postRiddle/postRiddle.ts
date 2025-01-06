@@ -8,35 +8,39 @@ export const postRiddle = async (
   twitterClient: Scraper,
   prismaClient: PrismaClient
 ) => {
-  const unsolvedRiddle = await getUnsolvedRiddle(prismaClient);
-  if (!unsolvedRiddle) {
-    console.log("No unsolved riddle found");
+  const postedRiddle = await getUnsolvedRiddle(prismaClient);
+  if (!postedRiddle) {
+    console.log("No not posted riddle found");
     return;
   }
 
-  await postTweet(twitterClient, unsolvedRiddle.riddle);
+  await postTweet(twitterClient, postedRiddle.riddle);
 
   try {
     await prismaClient.riddle.update({
-      where: { id: unsolvedRiddle.id },
+      where: { id: postedRiddle.id },
       data: {
         isPosted: true,
       },
     });
     console.log(
-      `Riddle with id: ${unsolvedRiddle.id} marked as posted in the database.`
+      `Riddle with id: ${postedRiddle.id} marked as posted in the database.`
     );
   } catch (error) {
     console.error("Error updating riddle status:", error);
     throw error;
   }
 
-  try {
-    const tweetId = await getRiddleId(twitterClient, unsolvedRiddle.riddle);
-    console.log(`Tweet ID successfully retrieved: ${tweetId}`);
-    return { riddle: unsolvedRiddle, tweetId };
-  } catch (error) {
-    console.error("Error getting riddle ID:", error);
-    throw error;
+  const retryCount = 10;
+  for (let i = 1; i <= retryCount; i++) {
+    console.log(`Attempting to get riddle ID. Attempt: ${i}/${retryCount}`);
+    try {
+      const tweetId = await getRiddleId(twitterClient, postedRiddle.riddle);
+      console.log(`Tweet ID successfully retrieved: ${tweetId}`);
+      return { riddle: postedRiddle, tweetId };
+    } catch (error) {
+      console.error("Error getting riddle ID:", error);
+      throw error;
+    }
   }
 };

@@ -12,7 +12,7 @@ export const getNewRiddle = async (prismaClient: PrismaClient) => {
     });
     return riddle;
   } catch (error) {
-    console.error("Error fetching unsolved riddle:", error);
+    console.error("Error fetching not posted riddle:", error);
     throw error;
   }
 };

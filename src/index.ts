@@ -12,7 +12,6 @@ import { replyToWinningAnswer } from "./utils/twitter/replyToWinningAnswer";
 dotenv.config();
 
 // TODO not working:
-// - Check for oldest answer!!!!
 // -Retrvie tweet id many times
 
 async function main() {
