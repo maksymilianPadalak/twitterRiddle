@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Scraper } from "agent-twitter-client";
 import { getUnsolvedRiddle } from "../../getNewRiddle";
 import { getRiddleId } from "../getRiddleId";
+import { postTweet } from "../postTweet";
 
 export const postRiddle = async (
   twitterClient: Scraper,
@@ -13,13 +14,7 @@ export const postRiddle = async (
     return;
   }
 
-  try {
-    await twitterClient.sendTweet(unsolvedRiddle.riddle);
-    console.log(`Tweet posted successfully!\n${unsolvedRiddle.riddle}`);
-  } catch (error) {
-    console.error("Error posting tweet:", error);
-    throw error;
-  }
+  await postTweet(twitterClient, unsolvedRiddle.riddle);
 
   try {
     await prismaClient.riddle.update({

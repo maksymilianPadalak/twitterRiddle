@@ -7,13 +7,13 @@ import { postRiddle } from "./utils/twitter/postRiddle";
 import { validateAnswer } from "./utils/validateAnswer";
 import { postTweet } from "./utils/twitter/postTweet";
 import { generateTextFromAi } from "./utils/ai/generateTextFromAi";
+import { replyToWinningAnswer } from "./utils/twitter/replyToWinningAnswer";
 
 dotenv.config();
 
 // TODO not working:
-// - Fix bug with comparing the answer
 // - Check for oldest answer!!!!
-// - Find out if other people answers work as well
+// -Retrvie tweet id many times
 
 async function main() {
   const twitterClient = new Scraper();
@@ -27,28 +27,34 @@ async function main() {
     return;
   }
 
-  const scaningForAnswerInterval = 5000;
+  const scaningForAnswerInterval = 30000;
 
   const intervalId = setInterval(async () => {
     console.log(
       `Scanning for answer with interval: ${scaningForAnswerInterval}ms`
     );
     const replies = await getReplies(twitterClient, currentRiddle.tweetId!);
-    for (const reply of replies) {
-      if (!reply.text) {
+
+    const sortedReplies = replies.sort((a, b) => {
+      if (a?.timestamp && b?.timestamp) {
+        return a.timestamp - b.timestamp;
+      }
+      return 0;
+    });
+
+    for (const reply of sortedReplies) {
+      if (!reply.text || !reply.id) {
         continue;
       }
-      if (validateAnswer(currentRiddle.riddle.answer, reply.text)) {
-        try {
-          const winnerMessage = await generateTextFromAi(
-            "Generate a cool message congratulating winner on answering the riddle correctly. Make it short and sweet."
-          );
-          await postTweet(twitterClient, winnerMessage, reply.id);
-          console.log("WINNER FOUND");
-          clearInterval(intervalId);
-        } catch (error) {
-          console.error("Error posting tweet:", error);
-        }
+
+      const isAnswerCorrect = validateAnswer(
+        currentRiddle.riddle.answer,
+        reply.text
+      );
+
+      if (isAnswerCorrect) {
+        replyToWinningAnswer(twitterClient, reply.id, intervalId);
+        break;
       }
     }
   }, scaningForAnswerInterval);
