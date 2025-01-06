@@ -33,7 +33,9 @@ export const postRiddle = async (
 
   const retryCount = 10;
   for (let i = 1; i <= retryCount; i++) {
-    console.log(`Attempting to get riddle ID. Attempt: ${i}/${retryCount}`);
+    console.log(
+      `Attempting to retrieve riddle ID. Attempt: ${i}/${retryCount}`
+    );
     try {
       const tweetId = await getRiddleId(twitterClient, postedRiddle.riddle);
       console.log(`Tweet ID successfully retrieved: ${tweetId}`);
