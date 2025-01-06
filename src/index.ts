@@ -14,14 +14,18 @@ dotenv.config();
 // TODO
 // -Check if user got logged out
 // -Login less frequently
+// -Mark riddle as solved after it is solved
 
 async function main() {
   let shouldStop = false;
 
+  //Change when changing cron job duration
+  const TIMEOUT_IN_MS = 115000;
+
   const timeout = setTimeout(() => {
     console.error("Main function exceeded 115 seconds. Stopping execution.");
     shouldStop = true;
-  }, 115000);
+  }, TIMEOUT_IN_MS);
 
   try {
     const twitterClient = new Scraper();
