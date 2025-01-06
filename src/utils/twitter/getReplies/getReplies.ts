@@ -3,7 +3,7 @@ import { Scraper } from "agent-twitter-client";
 export const getReplies = async (
   twitterClient: Scraper,
   tweetId: string,
-  searchLimit: number = 10
+  searchLimit: number = 20
 ) => {
   const searchQuery = `conversation_id:${tweetId}`;
   const replies = [];

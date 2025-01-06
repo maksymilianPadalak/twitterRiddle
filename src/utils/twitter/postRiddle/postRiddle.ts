@@ -28,7 +28,6 @@ export const postRiddle = async (
     );
   } catch (error) {
     console.error("Error updating riddle status:", error);
-    throw error;
   }
 
   const retryCount = 10;
@@ -38,8 +37,12 @@ export const postRiddle = async (
     );
     try {
       const tweetId = await getRiddleId(twitterClient, postedRiddle.riddle);
-      console.log(`Tweet ID successfully retrieved: ${tweetId}`);
-      return { riddle: postedRiddle, tweetId };
+      if (tweetId) {
+        console.log(`Tweet ID successfully retrieved: ${tweetId}`);
+        return { riddle: postedRiddle, tweetId };
+      } else {
+        console.log("No tweet ID found");
+      }
     } catch (error) {
       console.error("Error getting riddle ID:", error);
     }
