@@ -31,7 +31,7 @@ async function main() {
 
   const intervalId = setInterval(async () => {
     console.log(
-      `Scanning for answer with interval: ${scaningForAnswerInterval}ms...`
+      `Scanning for answer with interval: ${scaningForAnswerInterval}ms`
     );
     const replies = await getReplies(twitterClient, currentRiddle.tweetId!);
     for (const reply of replies) {

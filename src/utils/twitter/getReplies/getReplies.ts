@@ -5,7 +5,7 @@ export const getReplies = async (
   tweetId: string,
   searchLimit: number = 10
 ) => {
-  const searchQuery = `to:${process.env.TWITTER_USERNAME}`;
+  const searchQuery = `conversation_id:${tweetId}`;
   const replies = [];
 
   for await (const tweet of twitterClient.searchTweets(
@@ -16,6 +16,8 @@ export const getReplies = async (
       replies.push(tweet);
     }
   }
+
+  console.log("Number of replies found: ", replies.length);
 
   return replies;
 };
