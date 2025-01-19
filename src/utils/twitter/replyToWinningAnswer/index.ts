@@ -1,1 +1,0 @@
-export { replyToWinningAnswer } from "./replyToWinningAnswer";
