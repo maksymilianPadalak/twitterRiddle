@@ -1,5 +1,11 @@
+import { loginToTwitter } from "./utils/twitter/loginToTwitter";
+import { Scraper } from "agent-twitter-client";
+
 async function main() {
-  console.log(process.env.TWITTER_USERNAME);
+  const twitterClient = new Scraper();
+  await loginToTwitter(twitterClient);
+
+  console.log("Elo siema!");
 }
 
 main();

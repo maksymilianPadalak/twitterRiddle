@@ -6,9 +6,10 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc",
-    "start": "node --env-file=.env dist/index.js",
-    "dev": "ts-node-dev --respawn --env-file=.env src/index.ts"
+    "build": "tsc",
+    "start": "node -r dotenv/config dist/index.js",
+    "dev": "ts-node-dev --env-file=.env src/index.ts",
+    "dev:respawn": "ts-node-dev --respawn --env-file=.env src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,14 +21,13 @@
     "agent-twitter-client": "^0.0.18",
     "ai": "^4.0.26",
     "cron": "^3.3.2",
-    "express": "^4.21.2"
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.31.0",
-    "nodemon": "^3.1.9",
     "prisma": "^6.1.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",

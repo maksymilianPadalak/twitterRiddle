@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2021", // Update to the latest ECMAScript version your environment supports
-    "module": "ESNext", // Use the latest module system
+    "target": "ES2022",
+    "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node", // Use Node.js module resolution strategy
-    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
-    "resolveJsonModule": true, // Include modules imported with .json extension
-    "isolatedModules": true, // Ensure each file can be safely transpiled without relying on other imports
-    "noEmitOnError": true // Prevent emitting files if any type checking errors are reported
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*", "scripts"],
+  "exclude": ["node_modules"]
 }
