@@ -6,26 +6,11 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model Riddle {
-  id        String @id @default(cuid())
-  riddle    String
-  answer    String
-  isPosted  Boolean @default(false)
-  isSolved  Boolean @default(false)
-  createdAt DateTime @default(now())
-}
-
-model Winner {
-  id        String @id @default(cuid())
-  riddleId  String
-  userId    String
-  username  String
-  createdAt DateTime @default(now())
+  directUrl = env("DIRECT_URL")
 }

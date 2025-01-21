@@ -17,7 +17,7 @@
   "description": "",
   "dependencies": {
     "@ai-sdk/openai": "^1.0.13",
-    "@prisma/client": "^6.1.0",
+    "@prisma/client": "^6.2.1",
     "agent-twitter-client": "^0.0.18",
     "ai": "^4.0.26",
     "cron": "^3.3.2",
@@ -28,7 +28,7 @@
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.31.0",
-    "prisma": "^6.1.0",
+    "prisma": "^6.2.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
