@@ -1,0 +1,1 @@
+export { getUserTweets } from "./getUserTweets";

@@ -1,1 +1,0 @@
-export { getRiddleId } from "./getRiddleId";
