@@ -17,9 +17,10 @@
   "description": "",
   "dependencies": {
     "@ai-sdk/openai": "^1.0.13",
+    "@ai-sdk/xai": "^1.1.8",
     "@prisma/client": "^6.2.1",
     "agent-twitter-client": "^0.0.18",
-    "ai": "^4.0.26",
+    "ai": "^4.1.0",
     "cron": "^3.3.2",
     "dotenv": "^10.0.0"
   },

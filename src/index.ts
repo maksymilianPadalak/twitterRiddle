@@ -6,6 +6,7 @@ import { Scraper } from "agent-twitter-client";
 async function main() {
   const twitterClient = new Scraper();
   await loginToTwitter(twitterClient);
+
   const newTweet = await generateTextFromAi(
     "What do you think about last formula1 season?"
   );
